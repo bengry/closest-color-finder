@@ -19,7 +19,7 @@ export function App() {
 
   return (
     <VStack my="5" mx="10" alignItems="start">
-      <styled.h1 fontWeight={'medium'} fontSize={'xl'}>
+      <styled.h1 fontWeight="medium" fontSize="xl">
         Closest Color Finder
       </styled.h1>
 

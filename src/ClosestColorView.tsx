@@ -84,9 +84,9 @@ export const ClosestColorView: React.FC<{
           gridColumnStart={1}
           gridColumnEnd={2}
           ml="4"
-          translateX={'-50%'}
+          translateX="-50%"
           outline="1px solid"
-          outlineColor={'gray.200'}
+          outlineColor="gray.200"
           gridRow="full"
           aspectRatio="square"
           h="1rem"
@@ -131,7 +131,7 @@ const ColorMatch: React.FC<{
         {capitalize(name)} {scaleKey}
       </styled.span>
 
-      <styled.span color={'gray.500'} fontSize="sm">
+      <styled.span color="gray.500" fontSize="sm">
         ({THEME_TYPE_UI[theme].label})
       </styled.span>
     </HStack>

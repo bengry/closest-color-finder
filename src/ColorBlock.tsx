@@ -18,16 +18,16 @@ export const ColorBlock: React.FC<{
         '--color-count': Object.keys(colorScale.light).length,
       }}
     >
-      <styled.span fontWeight={'medium'}>{colorName}</styled.span>
+      <styled.span fontWeight="medium">{colorName}</styled.span>
 
       <Grid
-        rowGap={'2'}
-        columnGap={'1'}
-        gridTemplateColumns={'repeat(calc(var(--color-count) + 1), 1fr)'}
+        rowGap="2"
+        columnGap="1"
+        gridTemplateColumns="repeat(calc(var(--color-count) + 1), 1fr)"
         gridTemplateRows={2}
-        alignItems={'center'}
+        alignItems="center"
         p="2"
-        rounded={'sm'}
+        rounded="sm"
       >
         {objectEntries(THEME_TYPE_UI).map(([themeType, { label }]) => {
           const colors = colorScale[themeType];
