@@ -1,9 +1,10 @@
-import { VStack, HStack, styled } from '@shadow-panda/styled-system/jsx';
+import { HStack, VStack, styled } from '@shadow-panda/styled-system/jsx';
 import { useLocalStorage } from 'react-use';
-import { capitalize, keyBy, objectEntries, objectKeys } from 'typedash';
-import { ColorBlock } from './ColorBlock';
+import { keyBy, objectKeys } from 'typedash';
+import { ClosestColorView } from './ClosestColorView';
+import { ColorPresetPicker } from './ColorPresetPicker';
+import { ColorPresetView } from './ColorPresetView';
 import { RadixColorPreset } from './colorPresets/RadixColorPreset';
-import { Select } from './ui/components';
 
 const presets = keyBy([RadixColorPreset], preset => preset.key);
 
@@ -21,32 +22,16 @@ export function App() {
         Closest Color Finder
       </styled.h1>
 
-      <Select value={selectedPresetKey} onValueChange={setSelectedPresetKey}>
-        <Select.Trigger w="180px">
-          <Select.Value placeholder="Select a preset" />
-        </Select.Trigger>
+      <HStack w="full" justifyContent="space-between">
+        <ClosestColorView />
 
-        <Select.Content>
-          <Select.Item value="radix">Radix</Select.Item>
-          <Select.Item value="wiz">Wiz</Select.Item>
-        </Select.Content>
-      </Select>
-
-      <HStack
-        rowGap="6"
-        columnGap="14"
-        marginTop="10"
-        flexWrap="wrap"
-        _empty={{ display: 'none' }}
-      >
-        {objectEntries(selectedPalette ?? {}).map(([colorName, colorScale]) => (
-          <ColorBlock
-            key={colorName}
-            colorName={capitalize(colorName)}
-            colorScale={colorScale}
-          />
-        ))}
+        <ColorPresetPicker
+          value={selectedPresetKey}
+          onValueChange={setSelectedPresetKey}
+        />
       </HStack>
+
+      {selectedPalette && <ColorPresetView palette={selectedPalette} />}
     </VStack>
   );
 }
