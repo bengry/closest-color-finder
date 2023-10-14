@@ -5,8 +5,9 @@ import { ClosestColorView } from './ClosestColorView';
 import { ColorPresetPicker } from './ColorPresetPicker';
 import { ColorPresetView } from './ColorPresetView';
 import { RadixColorPreset } from './colorPresets/RadixColorPreset';
+import { WizColorPreset } from './colorPresets/WizColorPreset';
 
-const presets = keyBy([RadixColorPreset], preset => preset.key);
+const presets = keyBy([RadixColorPreset, WizColorPreset], preset => preset.key);
 
 type PresetKey = keyof typeof presets;
 

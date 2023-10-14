@@ -2,10 +2,10 @@ import { capitalize } from 'typedash';
 
 export function createColorPreset<
   const TColorPresetConfig extends ColorPresetConfig<string>,
->({ label, ...config }: TColorPresetConfig) {
+>(config: TColorPresetConfig) {
   return {
     ...config,
-    label: label || capitalize(label ?? ''),
+    label: config.label || capitalize(config.label ?? ''),
   };
 }
 

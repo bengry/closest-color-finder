@@ -12,6 +12,7 @@ import {
   objectEntries,
   objectFromEntries,
 } from 'typedash';
+
 import {
   ColorPalette,
   ThemeType,
@@ -34,7 +35,10 @@ export const ClosestColorView: React.FC<{
         return objectEntries(scale).flatMap(([themeType, themeColors]) =>
           objectEntries(themeColors).map(
             ([scaleKey, colorValue]) =>
-              [[colorName, themeType, scaleKey].join(':'), colorValue] as const
+              [
+                [colorName, themeType, scaleKey].join(':'),
+                parseColor(colorValue).hex,
+              ] as const
           )
         );
       })

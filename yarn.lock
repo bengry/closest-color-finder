@@ -1942,6 +1942,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tsconfig/vite-react@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@tsconfig/vite-react@npm:2.0.1"
+  checksum: 5715563bf293484c8b5ad36a0328159b11de9bde507b96dcde1d72243d02dcd8eb0383c1676e319cfb03e8f79d96891103d480c7157177f4d7a0b368ede4a46d
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.20.1, @types/babel__core@npm:^7.20.2":
   version: 7.20.2
   resolution: "@types/babel__core@npm:7.20.2"
@@ -3864,6 +3871,7 @@ __metadata:
     "@radix-ui/react-toast": ^1.1.5
     "@shadow-panda/preset": ^0.7.1
     "@shadow-panda/style-context": ^0.7.1
+    "@tsconfig/vite-react": ^2.0.1
     "@types/parse-color": ^1.0.1
     "@types/react": ^18.2.28
     "@types/react-dom": ^18.2.13
