@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
+    "codegen:panda": "panda codegen",
     "dev": "vite",
     "lint": "concurrently \"yarn lint:eslint\" \"yarn lint:format\" \"yarn lint:type-check\" \"yarn lint:dependencies\"",
     "lint:dependencies": "yarn dedupe --check",
@@ -14,18 +15,28 @@
     "lint:format": "prettier --check .",
     "lint:format:fix": "prettier --write .",
     "lint:type-check": "tsc --noEmit",
+    "prepare": "yarn codegen:panda",
     "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/colors": "^3.0.0",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@shadow-panda/style-context": "^0.7.1",
+    "lucide-react": "^0.287.0",
     "nearest-color": "^0.4.4",
     "parse-color": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-use": "^17.4.0",
     "typedash": "^3.2.0"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.15.5",
+    "@shadow-panda/preset": "^0.7.1",
+    "@types/parse-color": "^1.0.1",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",
     "@types/xo": "^0.39.6",
