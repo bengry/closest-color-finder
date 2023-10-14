@@ -1,21 +1,29 @@
-import { Grid, VStack, styled } from '@shadow-panda/styled-system/jsx';
+import { Box, Grid, VStack, styled } from '@shadow-panda/styled-system/jsx';
 import React from 'react';
-import { objectEntries } from 'typedash';
+import { Maybe, objectEntries } from 'typedash';
 import { ColorActions } from './ColorActions';
-import { ColorScale } from './colorPresets/_internal/createColorPreset';
+import {
+  ColorScale,
+  ThemeType,
+} from './colorPresets/_internal/createColorPreset';
 import { ColorBox } from './ColorBox';
 import { THEME_TYPE_UI } from './THEME_TYPE_UI';
 
 export const ColorBlock: React.FC<{
   colorName: string;
   colorScale: ColorScale;
-}> = ({ colorName, colorScale }) => {
+  highlight?: Maybe<{
+    theme: ThemeType;
+    scaleKey: string;
+  }>;
+}> = ({ colorName, colorScale, highlight }) => {
   return (
     <VStack
       gap="1"
       alignItems="start"
       style={{
-        '--color-count': Object.keys(colorScale.light).length,
+        '--color-count': Object.keys(colorScale.light ?? colorScale.dark ?? {})
+          .length,
       }}
     >
       <styled.span fontWeight="medium">{colorName}</styled.span>
@@ -31,6 +39,8 @@ export const ColorBlock: React.FC<{
       >
         {objectEntries(THEME_TYPE_UI).map(([themeType, { label }]) => {
           const colors = colorScale[themeType];
+          if (!colors) return null;
+
           return (
             <React.Fragment key={themeType}>
               <styled.span color="gray.500" mr="3">
@@ -38,9 +48,34 @@ export const ColorBlock: React.FC<{
               </styled.span>
 
               {objectEntries(colors).map(([key, value]) => {
+                const isHighlighted =
+                  highlight?.theme === themeType && highlight.scaleKey === key;
+
                 return (
                   <ColorActions key={key} value={value}>
-                    <ColorBox color={value} />
+                    <Box
+                      ref={ref => {
+                        if (isHighlighted) {
+                          ref?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                          });
+                        }
+                      }}
+                      css={{
+                        transition: 'all',
+                        transitionDuration: 'fast',
+                        outlineWidth: 'medium',
+                        outlineColor: 'transparent',
+                        outlineOffset: '2px',
+                        outlineStyle: 'dotted',
+                        ...(isHighlighted && {
+                          outlineColor: 'yellow.400',
+                        }),
+                      }}
+                    >
+                      <ColorBox color={value} />
+                    </Box>
                   </ColorActions>
                 );
               })}

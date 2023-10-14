@@ -21,11 +21,13 @@ export interface ColorPalette {
   [colorName: string]: ColorScale;
 }
 
-export type ColorScale = Record<
-  ThemeType,
-  {
-    [scale: string | number]: string;
-  }
+export type ColorScale = Partial<
+  Record<
+    ThemeType,
+    {
+      [scale: string | number]: string;
+    }
+  >
 >;
 
 export type ThemeType = 'light' | 'dark';

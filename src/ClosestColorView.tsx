@@ -9,14 +9,15 @@ import {
 import { XIcon } from 'lucide-react';
 import * as createNearestColor from 'nearest-color';
 import parseColor from 'parse-color';
-import { useMemo, useState } from 'react';
-import { useDebounce } from 'react-use';
+import { useEffect, useMemo, useState } from 'react';
+import { useDebounce, useLatest } from 'react-use';
 import {
   Maybe,
   capitalize,
   isEmpty,
   objectEntries,
   objectFromEntries,
+  pick,
 } from 'typedash';
 
 import {
@@ -25,11 +26,22 @@ import {
 } from './colorPresets/_internal/createColorPreset';
 import { Button, Input, Label } from './ui/components';
 import { THEME_TYPE_UI } from './THEME_TYPE_UI';
+import { ColorActions } from './ColorActions';
 
 export const ClosestColorView: React.FC<{
   className?: string;
   colorPalette: Maybe<ColorPalette>;
-}> = ({ className, colorPalette }) => {
+  onClosestColorChange?: (
+    options: null | {
+      inputColor: string;
+      closestColor: {
+        name: string;
+        theme: ThemeType;
+        scaleKey: string;
+      };
+    }
+  ) => void;
+}> = ({ className, colorPalette, ...props }) => {
   const [color, setColor] = useState('');
   const debouncedColor = useDebouncedState(color, 500);
 
@@ -39,7 +51,7 @@ export const ClosestColorView: React.FC<{
     const flattenedColorPalette = objectFromEntries(
       objectEntries(colorPalette).flatMap(([colorName, scale]) => {
         return objectEntries(scale).flatMap(([themeType, themeColors]) =>
-          objectEntries(themeColors).map(
+          objectEntries(themeColors ?? {}).map(
             ([scaleKey, colorValue]) =>
               [
                 [colorName, themeType, scaleKey].join(':'),
@@ -58,7 +70,7 @@ export const ClosestColorView: React.FC<{
     null
   );
 
-  const nearestColor = (() => {
+  const nearestColor = useMemo(() => {
     const colorMatch = parsedColorHex
       ? getNearestColor?.(parsedColorHex)
       : null;
@@ -70,7 +82,22 @@ export const ClosestColorView: React.FC<{
       value: colorMatch.value,
       distance: colorMatch.distance,
     };
-  })();
+  }, [getNearestColor, parsedColorHex]);
+
+  const onClosestColorChange = useLatest(props.onClosestColorChange);
+  useEffect(() => {
+    if (onClosestColorChange.current == null) return;
+
+    if (nearestColor == null) {
+      onClosestColorChange.current(null);
+      return;
+    }
+
+    onClosestColorChange.current({
+      inputColor: debouncedColor,
+      closestColor: pick(nearestColor, ['name', 'theme', 'scaleKey']),
+    });
+  }, [debouncedColor, nearestColor, onClosestColorChange]);
 
   return (
     <HStack gap="2" className={className} minH="45px">
@@ -109,12 +136,14 @@ export const ClosestColorView: React.FC<{
 
       {nearestColor && (
         <VStack alignItems="start" ml="2" gap="0">
-          <ColorMatch
-            theme={nearestColor.theme}
-            name={nearestColor.name}
-            scaleKey={nearestColor.scaleKey}
-            colorHex={nearestColor.value}
-          />
+          <ColorActions value={nearestColor.value}>
+            <ColorMatch
+              theme={nearestColor.theme}
+              name={nearestColor.name}
+              scaleKey={nearestColor.scaleKey}
+              colorHex={nearestColor.value}
+            />
+          </ColorActions>
           <styled.span fontSize="sm" color="gray.500">
             Distance: {Math.floor(nearestColor.distance)}
           </styled.span>
