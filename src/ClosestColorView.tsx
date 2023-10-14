@@ -84,7 +84,7 @@ export const ClosestColorView: React.FC<{
           onChange={e => setColor(e.target.value)}
           w="52"
           transitionDelay="slower"
-          aria-invalid={!isEmpty(color) && parsedColorHex == null}
+          aria-invalid={!isEmpty(debouncedColor) && parsedColorHex == null}
           pl="8"
         />
         <Circle
