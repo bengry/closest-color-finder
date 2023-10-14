@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "yarn codegen && vite build",
+    "codegen": "yarn codegen:panda",
     "codegen:panda": "panda codegen",
-    "dev": "vite",
+    "dev": "yarn codegen && vite",
     "lint": "concurrently \"yarn lint:eslint\" \"yarn lint:format\" \"yarn lint:type-check\" \"yarn lint:dependencies\"",
     "lint:dependencies": "yarn dedupe --check",
     "lint:dependencies:fix": "yarn dedupe && yarn",
