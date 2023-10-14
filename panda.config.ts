@@ -8,13 +8,18 @@ export default defineConfig({
   emitPackage: true,
   outdir: '@shadow-panda/styled-system',
   jsxFramework: 'react',
-  theme: {
-    extend: {},
-  },
   staticCss: {
     recipes: {
       // Load toast variant styles since it cannot be statically analyzed
       toast: [{ variant: ['*'] }],
+    },
+  },
+  theme: {
+    extend: {},
+  },
+  globalCss: {
+    body: {
+      backgroundColor: 'slate.50',
     },
   },
 });
