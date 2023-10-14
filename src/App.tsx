@@ -1,21 +1,20 @@
 import { HStack, VStack, styled } from '@shadow-panda/styled-system/jsx';
 import { useLocalStorage } from 'react-use';
-import { keyBy, objectKeys } from 'typedash';
 import { ClosestColorView } from './ClosestColorView';
 import { ColorPresetPicker } from './ColorPresetPicker';
 import { ColorPresetView } from './ColorPresetView';
-import { RadixColorPreset } from './colorPresets/RadixColorPreset';
-import { WizColorPreset } from './colorPresets/WizColorPreset';
-
-const presets = keyBy([RadixColorPreset, WizColorPreset], preset => preset.key);
-
-type PresetKey = keyof typeof presets;
+import {
+  ColorPresetKey,
+  AllColorPresets as allColorPresets,
+} from './colorPresets';
 
 export function App() {
-  const [selectedPresetKey = objectKeys(presets)[0], setSelectedPresetKey] =
-    useLocalStorage<PresetKey>('color-preset');
+  const [selectedPresetKey = allColorPresets[0].key, setSelectedPresetKey] =
+    useLocalStorage<ColorPresetKey>('color-preset');
 
-  const selectedPalette = presets[selectedPresetKey]?.palette;
+  const selectedPalette = allColorPresets.find(
+    preset => preset.key === selectedPresetKey
+  )?.palette;
 
   return (
     <VStack my="5" mx="10" alignItems="start">
@@ -29,6 +28,7 @@ export function App() {
         <ColorPresetPicker
           value={selectedPresetKey}
           onValueChange={setSelectedPresetKey}
+          options={allColorPresets}
         />
       </HStack>
 

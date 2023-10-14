@@ -1,7 +1,8 @@
 import { capitalize } from 'typedash';
 
 export function createColorPreset<
-  const TColorPresetConfig extends ColorPresetConfig<string>,
+  const TKey extends string,
+  TColorPresetConfig extends ColorPresetConfig<TKey>,
 >(config: TColorPresetConfig) {
   return {
     ...config,
@@ -9,7 +10,7 @@ export function createColorPreset<
   };
 }
 
-interface ColorPresetConfig<TKey extends string> {
+export interface ColorPresetConfig<TKey extends string> {
   key: TKey;
   label?: string;
   icon?: React.ReactNode;

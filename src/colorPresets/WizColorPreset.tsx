@@ -1,5 +1,5 @@
 import * as RadixColors from '@radix-ui/colors';
-import { WandIcon } from 'lucide-react';
+import { Wand2Icon } from 'lucide-react';
 import { mapKeys, pick } from 'typedash';
 import { RadixColorPreset } from './RadixColorPreset';
 import { ColorScale, createColorPreset } from './_internal/createColorPreset';
@@ -43,7 +43,7 @@ const gray: ColorScale = {
 export const WizColorPreset = createColorPreset({
   key: 'wiz',
   label: 'Wiz',
-  icon: <WandIcon />,
+  icon: <Wand2Icon />,
   palette: {
     gray,
     blue,
