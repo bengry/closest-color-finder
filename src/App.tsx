@@ -23,7 +23,7 @@ export function App() {
       </styled.h1>
 
       <HStack w="full" justifyContent="space-between">
-        <ClosestColorView />
+        <ClosestColorView colorPalette={selectedPalette} />
 
         <ColorPresetPicker
           value={selectedPresetKey}

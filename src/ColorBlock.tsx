@@ -2,11 +2,9 @@ import { Grid, VStack, styled } from '@shadow-panda/styled-system/jsx';
 import React from 'react';
 import { objectEntries } from 'typedash';
 import { ColorActions } from './ColorActions';
-import {
-  ColorScale,
-  ThemeType,
-} from './colorPresets/_internal/createColorPreset';
+import { ColorScale } from './colorPresets/_internal/createColorPreset';
 import { ColorBox } from './ColorBox';
+import { THEME_TYPE_UI } from './THEME_TYPE_UI';
 
 export const ColorBlock: React.FC<{
   colorName: string;
@@ -52,9 +50,4 @@ export const ColorBlock: React.FC<{
       </Grid>
     </VStack>
   );
-};
-
-const THEME_TYPE_UI: Record<ThemeType, { label: string }> = {
-  light: { label: 'Light' },
-  dark: { label: 'Dark' },
 };
