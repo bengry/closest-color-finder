@@ -18,6 +18,7 @@ import {
   objectEntries,
   objectFromEntries,
   pick,
+  sample,
 } from 'typedash';
 
 import {
@@ -99,6 +100,15 @@ export const ClosestColorView: React.FC<{
     });
   }, [debouncedColor, nearestColor, onClosestColorChange]);
 
+  const examples = [
+    '#abcdef',
+    'rgba(124, 218, 33, 0.7)',
+    'hsla(120, 100%, 50%, 0.3)',
+    'hsl(120, 100%, 50%)',
+    'rgb(124, 218, 33)',
+    'green',
+  ];
+
   return (
     <HStack gap="2" className={className} minH="45px">
       <Label>Color</Label>
@@ -106,10 +116,10 @@ export const ClosestColorView: React.FC<{
         <Input
           gridColumn="full"
           gridRow="full"
-          placeholder="Enter color"
+          placeholder={sample(examples)}
           value={color}
           onChange={e => setColor(e.target.value)}
-          w="52"
+          w="56"
           transitionDelay="slower"
           aria-invalid={!isEmpty(debouncedColor) && parsedColorHex == null}
           pl="8"
