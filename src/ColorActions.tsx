@@ -1,4 +1,4 @@
-import { HStack, styled } from '@shadow-panda/styled-system/jsx';
+import { Box, HStack, styled } from '@shadow-panda/styled-system/jsx';
 import { CheckCircleIcon } from 'lucide-react';
 import parseColor, { Color } from 'parse-color';
 import { useState } from 'react';
@@ -8,9 +8,10 @@ import { copyToClipboard } from './utils';
 
 export const ColorActions: React.FC<
   React.PropsWithChildren<{
+    title?: React.ReactNode;
     value: string;
   }>
-> = ({ value, children }) => {
+> = ({ title, value, children }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const toast = useToast();
 
@@ -24,6 +25,8 @@ export const ColorActions: React.FC<
 
       <Popover.Content p="2">
         <Popover.Arrow />
+
+        {title && <Box mx="1">{title}</Box>}
 
         <ul role="menu">
           {objectEntries(COLOR_FORMATS_UI).map(
