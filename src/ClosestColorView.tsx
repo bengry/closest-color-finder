@@ -1,5 +1,11 @@
 import { css } from '@shadow-panda/styled-system/css';
-import { Circle, HStack, styled, Box } from '@shadow-panda/styled-system/jsx';
+import {
+  Circle,
+  HStack,
+  VStack,
+  styled,
+  Box,
+} from '@shadow-panda/styled-system/jsx';
 import { XIcon } from 'lucide-react';
 import * as createNearestColor from 'nearest-color';
 import parseColor from 'parse-color';
@@ -62,11 +68,12 @@ export const ClosestColorView: React.FC<{
     return {
       ...paletteColorSerializer.deserialize(colorMatch?.name),
       value: colorMatch.value,
+      distance: colorMatch.distance,
     };
   })();
 
   return (
-    <HStack gap="2" className={className}>
+    <HStack gap="2" className={className} minH="45px">
       <Label>Color</Label>
       <Box display="grid" gridTemplateColumns="auto 1fr" alignItems="center">
         <Input
@@ -101,13 +108,17 @@ export const ClosestColorView: React.FC<{
       </Button>
 
       {nearestColor && (
-        <ColorMatch
-          className={css({ ml: '2' })}
-          theme={nearestColor.theme}
-          name={nearestColor.name}
-          scaleKey={nearestColor.scaleKey}
-          colorHex={nearestColor.value}
-        />
+        <VStack alignItems="start" ml="2" gap="0">
+          <ColorMatch
+            theme={nearestColor.theme}
+            name={nearestColor.name}
+            scaleKey={nearestColor.scaleKey}
+            colorHex={nearestColor.value}
+          />
+          <styled.span fontSize="sm" color="gray.500">
+            Distance: {Math.floor(nearestColor.distance)}
+          </styled.span>
+        </VStack>
       )}
     </HStack>
   );
@@ -125,6 +136,8 @@ const ColorMatch: React.FC<{
       <Circle
         style={{ backgroundColor: colorHex }}
         w="4"
+        outline="1px solid"
+        outlineColor="gray.200"
         aspectRatio="square"
       />
       <styled.span>
