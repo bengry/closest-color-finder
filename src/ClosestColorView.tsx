@@ -14,6 +14,7 @@ import { useDebounce, useLatest } from 'react-use';
 import {
   Maybe,
   capitalize,
+  ensurePrefix,
   isEmpty,
   objectEntries,
   objectFromEntries,
@@ -43,8 +44,8 @@ export const ClosestColorView: React.FC<{
     }
   ) => void;
 }> = ({ className, colorPalette, ...props }) => {
-  const [color, setColor] = useState('');
-  const debouncedColor = useDebouncedState(color, 500);
+  const [input, setInput] = useState('');
+  const debouncedInput = useDebouncedState(input, 500);
 
   const getNearestColor = useMemo(() => {
     if (colorPalette == null) return null;
@@ -66,10 +67,16 @@ export const ClosestColorView: React.FC<{
     return createNearestColor.from(flattenedColorPalette);
   }, [colorPalette]);
 
-  const parsedColorHex = tryGetOrDefault(
-    () => parseColor(debouncedColor).hex,
-    null
-  );
+  const parsedColorHex = tryGetOrDefault(() => {
+    const isInputHexLike =
+      input.startsWith('#') || input.length === 6 || input.length === 3;
+
+    if (isInputHexLike) {
+      return parseColor(ensurePrefix(input, '#')).hex;
+    }
+
+    return parseColor(input).hex;
+  }, null);
 
   const nearestColor = useMemo(() => {
     const colorMatch = parsedColorHex
@@ -95,10 +102,10 @@ export const ClosestColorView: React.FC<{
     }
 
     onClosestColorChange.current({
-      inputColor: debouncedColor,
+      inputColor: debouncedInput,
       closestColor: pick(nearestColor, ['name', 'theme', 'scaleKey']),
     });
-  }, [debouncedColor, nearestColor, onClosestColorChange]);
+  }, [debouncedInput, nearestColor, onClosestColorChange]);
 
   const examples = [
     '#abcdef',
@@ -117,11 +124,11 @@ export const ClosestColorView: React.FC<{
           gridColumn="full"
           gridRow="full"
           placeholder={sample(examples)}
-          value={color}
-          onChange={e => setColor(e.target.value)}
+          value={input}
+          onChange={e => setInput(e.target.value)}
           w="56"
           transitionDelay="slower"
-          aria-invalid={!isEmpty(debouncedColor) && parsedColorHex == null}
+          aria-invalid={!isEmpty(debouncedInput) && parsedColorHex == null}
           pl="8"
         />
         <Circle
@@ -140,7 +147,7 @@ export const ClosestColorView: React.FC<{
         />
       </Box>
 
-      <Button variant="outline" size="icon" onClick={() => setColor('')}>
+      <Button variant="outline" size="icon" onClick={() => setInput('')}>
         <XIcon className={css({ w: 4, aspectRatio: 'square' })} />
       </Button>
 
