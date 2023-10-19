@@ -7,7 +7,7 @@ import {
   Box,
 } from '@shadow-panda/styled-system/jsx';
 import { XIcon } from 'lucide-react';
-import * as createNearestColor from 'nearest-color';
+import createNearestColor from 'nearest-color';
 import parseColor from 'parse-color';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebounce, useLatest } from 'react-use';
@@ -27,7 +27,7 @@ import {
   ThemeType,
 } from './colorPresets/_internal/createColorPreset';
 import { Button, Input, Label } from './ui/components';
-import { THEME_TYPE_UI } from './THEME_TYPE_UI';
+import { THEME_TYPE_UI } from './ThemeTypeUI';
 import { ColorActions } from './ColorActions';
 
 export const ClosestColorView: React.FC<{

@@ -7,7 +7,7 @@ import {
   ThemeType,
 } from './colorPresets/_internal/createColorPreset';
 import { ColorBox } from './ColorBox';
-import { THEME_TYPE_UI } from './THEME_TYPE_UI';
+import { THEME_TYPE_UI } from './ThemeTypeUI';
 import { Tooltip } from './ui/components';
 
 export const ColorBlock: React.FC<{
