@@ -6,6 +6,7 @@ import {
   styled,
   Box,
 } from '@shadow-panda/styled-system/jsx';
+import { isNamedColor } from 'named-css-colors';
 import { XIcon } from 'lucide-react';
 import createNearestColor from 'nearest-color';
 import parseColor from 'parse-color';
@@ -68,6 +69,10 @@ export const ClosestColorView: React.FC<{
   }, [colorPalette]);
 
   const parsedColorHex = tryGetOrDefault(() => {
+    if (isNamedColor(input)) {
+      return parseColor(input).hex;
+    }
+
     const isInputHexLike =
       input.startsWith('#') || input.length === 6 || input.length === 3;
 

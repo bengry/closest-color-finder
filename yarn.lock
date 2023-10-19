@@ -2176,18 +2176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 18.2.28
-  resolution: "@types/react@npm:18.2.28"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: 81381bedeba83278f4c9febb0b83e0bd3f42a25897a50b9cb36ef53651d34b3d50f87ebf11211ea57ea575131f85d31e93e496ce46478a00b0f9bf7b26b5917a
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18.2.30":
+"@types/react@npm:*, @types/react@npm:^18.2.30":
   version: 18.2.30
   resolution: "@types/react@npm:18.2.30"
   dependencies:
@@ -3926,6 +3915,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-react-refresh: ^0.4.3
     lucide-react: ^0.288.0
+    named-css-colors: ^1.0.1
     nearest-color: ^0.4.4
     parse-color: ^1.0.0
     prettier: ^3.0.3
@@ -7293,6 +7283,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"named-css-colors@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "named-css-colors@npm:1.0.1"
+  checksum: 432946ee12cc69b7d0014b2fad0029c57bff615053d31fb733f60f73419dce24d046ed2d8d6ad1bcf99ba77c8bc248b127e46a2833a45bfcf894e4fc850be4a2
+  languageName: node
+  linkType: hard
+
 "nano-css@npm:^5.3.1":
   version: 5.3.5
   resolution: "nano-css@npm:5.3.5"
@@ -9827,7 +9824,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:4.4.11, vite@npm:^4.4.6":
+"vite@npm:4.4.11":
   version: 4.4.11
   resolution: "vite@npm:4.4.11"
   dependencies:
@@ -9867,7 +9864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^4.5.0":
+"vite@npm:^4.4.6, vite@npm:^4.5.0":
   version: 4.5.0
   resolution: "vite@npm:4.5.0"
   dependencies:
